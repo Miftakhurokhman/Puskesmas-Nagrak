@@ -1,0 +1,104 @@
+<div id="registrasiPage">
+  <div id="formRegistrasi">
+    <h1 style="
+            font-weight: bold;
+            font-size: xxx-large;
+        ">
+      Selamat Datang
+    </h1>
+    <h5 style="
+        font-weight: bold;
+        ">
+      Website Program Perencanaan Persalinan dan Pencegahan Komplikasi (P4K) Puskesmas Nagrak!
+    </h5>
+    <br>
+
+    <p>
+      Untuk membuat akun, isi form berikut:
+    </p>
+    <form [formGroup]="registrasiForm">
+      <div *ngIf="onFirstForm; else onSecondForm">
+        <div class="form-group">
+          <input formControlName="namaLengkapIbu" type="text" class="form-control" id="namaLengkapIbu"
+            placeholder="Masukkan nama lengkap ibu">
+        </div>
+
+        <div class="form-group">
+          <input formControlName="usia" type="number" class="form-control" id="usia" placeholder="Masukkan usia ibu">
+        </div>
+
+        <div class="form-group">
+          <input formControlName="nomorHP" type="text" class="form-control" id="nomorHP"
+            placeholder="Masukkan nomor HP ibu">
+        </div>
+
+        <div class="form-group">
+          <input formControlName="alamat" type="text" class="form-control" id="alamat"
+            placeholder="Masukkan alamat ibu">
+        </div>
+
+        <div class="form-group">
+          <input formControlName="usiaKehamilan" type="number" class="form-control" id="usiaKehamilan"
+            placeholder="Masukkan usia kehamilan ibu">
+        </div>
+
+        <br>
+
+        <button [disabled]="!buttonNextIsAble" (click)="changeForm()" type="button" class="btn btn-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right"
+            viewBox="0 0 16 16">
+            <path fill-rule="evenodd"
+              d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+          </svg>
+        </button>
+      </div>
+
+      <ng-template #onSecondForm>
+        <div class="form-group">
+          <label for="hariPertamaHaidTerakhir">Hari Pertama Haid Terakhir</label>
+          <input formControlName="hariPertamaHaidTerakhir" type="date" class="form-control"
+            id="hariPertamaHaidTerakhir">
+        </div>
+
+        <div class="form-group">
+          <label for="hariTaksiranPersalinan">Hari Taksiran Persalinan</label>
+          <input formControlName="hariTaksiranPersalinan" type="date" class="form-control" id="hariTaksiranPersalinan">
+        </div>
+
+        <div class="form-group">
+          <input formControlName="namaSuami" type="text" class="form-control" id="namaSuami"
+            placeholder="Nama Suami / Kepala Keluarga">
+        </div>
+
+
+        <br>
+
+        <div class="d-flex justify-content-between">
+          <button (click)="changeForm()" type="button" class="btn btn-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-left"
+              viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M15 8a.5.5 0 0 0-.5-.5H2.707l3.147-3.146a.5.5 0 1 0-.708-.708l-4 4a.5.5 0 0 0 0 .708l4 4a.5.5 0 0 0 .708-.708L2.707 8.5H14.5A.5.5 0 0 0 15 8" />
+            </svg>
+          </button>
+          <button [disabled]="!buttonSubmitIsAble" (click)="submitForm()" type="button" class="btn btn-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-right"
+              viewBox="0 0 16 16">
+              <path fill-rule="evenodd"
+                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8" />
+            </svg>
+          </button>
+        </div>
+      </ng-template>
+    </form>
+
+    <div style="
+            display: flex;
+        ">
+      <p>Sudah punya akun?&nbsp;</p>
+      <a style="
+                cursor: pointer;
+            " (click)="openPage('login')">Login</a>
+    </div>
+  </div>
+</div>

@@ -16,7 +16,8 @@ export class LoginComponent implements OnInit {
     this.registrasiForm = this.formBuilder.group({
       namaLengkapIbu: [null, Validators.required],
       nomorHP: [null, Validators.required],
-      hariPertamaHaidTerakhir: [null, Validators.required]
+      hariPertamaHaidTerakhir: [null, Validators.required],
+      password: [null, Validators.required]
     });
   }
 

@@ -1,3 +1,8 @@
+<div *ngIf="openSpinner" class="spinner">
+    <div class="spinner-border text-white" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
 <div id="registrasiPage">
   <div id="formRegistrasi">
     <h1 style="
@@ -24,7 +29,7 @@
         </div>
 
         <div class="form-group">
-          <input formControlName="usia" type="number" class="form-control" id="usia" placeholder="Masukkan usia ibu">
+          <input formControlName="usia" type="number" class="form-control" id="usia" placeholder="Masukkan usia ibu" min="0">
         </div>
 
         <div class="form-group">
@@ -39,7 +44,7 @@
 
         <div class="form-group">
           <input formControlName="usiaKehamilan" type="number" class="form-control" id="usiaKehamilan"
-            placeholder="Masukkan usia kehamilan ibu">
+            placeholder="Masukkan usia kehamilan ibu" min="0">
         </div>
 
         <br>
@@ -54,6 +59,12 @@
       </div>
 
       <ng-template #onSecondForm>
+        <div class="form-group">
+          <input formControlName="password" type="text" class="form-control" id="password"
+            placeholder="Password">
+          <div *ngIf="displayPasswordRules" id="passwordRules" class="form-text text-danger">Password harus berjumlah minimal 8 karakter dan dan terdiri dari huruf kapital, karakter unik, dan angka.</div>
+        </div>
+
         <div class="form-group">
           <label for="hariPertamaHaidTerakhir">Hari Pertama Haid Terakhir</label>
           <input formControlName="hariPertamaHaidTerakhir" type="date" class="form-control"

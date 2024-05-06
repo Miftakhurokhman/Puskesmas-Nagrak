@@ -19,6 +19,7 @@ export class RegistrasiComponent implements OnInit {
       nomorHP: [null, Validators.required],
       alamat: [null, Validators.required],
       usiaKehamilan: [null, Validators.required],
+      password: [null, Validators.required],
       hariPertamaHaidTerakhir: [null, Validators.required],
       hariTaksiranPersalinan: [null, Validators.required],
       namaSuami: [null, Validators.required]
@@ -28,7 +29,10 @@ export class RegistrasiComponent implements OnInit {
   buttonNextIsAble : boolean = false;
   buttonSubmitIsAble : boolean = false;
   onFirstForm: boolean = true;
-  
+  openSpinner: boolean = false;
+  displayPasswordRules: boolean = false;
+  previousValue: string = '';
+
   ngOnInit(): void {
     this.registrasiForm.valueChanges.subscribe(() => {
       if (this.registrasiForm.get('namaLengkapIbu')?.invalid || this.registrasiForm.get('usia')?.invalid || this.registrasiForm.get('alamat')?.invalid || this.registrasiForm.get('usiaKehamilan')?.invalid || this.registrasiForm.get('nomorHP')?.invalid) {
@@ -39,10 +43,35 @@ export class RegistrasiComponent implements OnInit {
 
       if (this.registrasiForm.invalid) {
         this.buttonSubmitIsAble = false
+      } else if (this.displayPasswordRules) {
+        this.buttonSubmitIsAble = false
       } else {
         this.buttonSubmitIsAble = true
       }
     })
+
+    this.registrasiForm.get('password')?.valueChanges.subscribe((value) => {
+      const pattern: RegExp = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_=+{};:,<.>])(?=.*[0-9]).{8,}$/;
+      if (!pattern.test(value)) {
+        this.displayPasswordRules = true;
+      } else {
+        this.displayPasswordRules = false;
+      }
+    });
+
+
+    this.registrasiForm.get('nomorHP')?.valueChanges.subscribe((value) => {
+      const pattern: RegExp = /^[0-9]+$/;
+      if (value === '') {
+        this.previousValue = value;
+      } else if (!pattern.test(value)) {
+        this.registrasiForm.patchValue({
+          nomorHP: this.previousValue
+        }, { emitEvent: false });
+      } else {
+        this.previousValue = value;
+      }
+    });
   }
 
   openPage(pageName: string) {
@@ -66,12 +95,17 @@ export class RegistrasiComponent implements OnInit {
       cancelButtonText: 'Tidak, batalkan',
     }).then((result) => {
       if (result.isConfirmed) {
-        // Lanjutkan dengan proses
-        // Misalnya:
+        this.sendFormData();
       } else if (result.dismiss === Swal.DismissReason.cancel) {
         // Proses dibatalkan
         console.log('Proses dibatalkan');
       }
     });
+  }
+
+  sendFormData(){
+    console.log(this.registrasiForm.value);
+    
+    this.openSpinner = true
   }
 }
